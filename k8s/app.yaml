@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: policy-as-code-platform
+  labels:
+    app: policy-as-code-platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: policy-as-code-platform
+  template:
+    metadata:
+      labels:
+        app: policy-as-code-platform
+    spec:
+      containers:
+        - name: api
+          image: policy-as-code-platform:local
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /v1/readyz
+              port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: policy-as-code-platform
+spec:
+  selector:
+    app: policy-as-code-platform
+  ports:
+    - port: 80
+      targetPort: 8080
