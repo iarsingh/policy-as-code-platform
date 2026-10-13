@@ -1,5 +1,12 @@
 # Policy-as-Code Platform
 
+## Overview
+
+A small policy-as-code service that checks container deployment settings before they ship. The `/check` endpoint fails a deployment that uses an image tagged `latest` or runs a privileged container, and a versioned ops API adds workspaces, tenant isolation, job approval and audit records.
+
+- **Built with:** Python, pytest, GitHub Actions
+- **Scope:** Local lab with tests; it refuses production changes and does not call a hosted model.
+
 <!-- project-guide:start -->
 ## Project guide
 
